@@ -1,7 +1,6 @@
 from faker import Faker
 from bs4 import BeautifulSoup
 import requests, progressbar, json, argparse
-from colorama import init, Fore, Style
 # for i in progressbar.progressbar(range(10), redirect_stdout=True):
 url = "https://afk.itslearning.com"
 
@@ -136,9 +135,3 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("session", help="ASP.NET_SessionId")
 	main(parser.parse_args().session)
-
-
-fs.write("\n".join(str(ser.readline(), "utf-8").strip().split("/")))
-
-
-
