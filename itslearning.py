@@ -1,7 +1,7 @@
 from faker import Faker
 from bs4 import BeautifulSoup
 import requests, progressbar, json, argparse
-# for i in progressbar.progressbar(range(10), redirect_stdout=True):
+
 url = "https://afk.itslearning.com"
 
 
@@ -90,10 +90,8 @@ def getAllContent(s, folder, session):
 
 
 def getSoup(s, item, session):
-	#if t.lower() in ["fil", "lenke", "oppgave"]
-	r = s.get(url + item["suburl"],#/LearningToolElement/ViewLearningToolElement.aspx", 
+	r = s.get(url + item["suburl"],
 		params={item["param"]: item["id"]},
-		#params={"LearningToolElementId": item}, 
 		cookies={"ASP.NET_SessionId": session},
 		headers={"User-Agent": Faker().firefox()})
 
@@ -105,7 +103,7 @@ def getSoup(s, item, session):
 
 def main(session=None):
 	s = requests.Session()
-	assert session, "Provide session cookie (ASP.NET_SessionId)"
+	assert len(session) < 16, "Provide session cookie (ASP.NET_SessionId)"
 
 	print("Gathering IDs")
 	stuff = getEverything(s, session, onlyStarred=False)
@@ -114,22 +112,6 @@ def main(session=None):
 	for item in progressbar.progressbar(stuff, redirect_stdout=True):
 		#print(item["teacher"]+": "+item["type"]+": "+getSoup(s, item, session).find("title").getText())
 		getSoup(s, item, session)
-
-	if False:
-		items = getAllContent(s, subjects["eng"], session)
-		print(json.dumps(items, indent=4, ensure_ascii=False))
-
-		for i in progressbar.progressbar(items, redirect_stdout=True):
-			print(getSoup(s, i, session).find("title").getText())
-
-	if False:
-		# example of getting a folder full of contents
-		folder = getFolderContents(s, 10025872, session)
-		print(json.dumps(folder, indent=4, ensure_ascii=False))
-
-		# example of getting a specific document (tested on links)
-		item = getSoup(s, 10323613, session)
-		print("Found:", item.find("title").getText())
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
