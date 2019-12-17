@@ -1,9 +1,11 @@
 # Itslearning-anti-surveillance
 ### A tool to single handedly render the teachers' spying features useless.
 ## Inner workings
+```
  Scan for availible subjects/courses
  Create a map of every availible resource the student has access to
  Induvidually visit every element (GET)
+```
 
 # Purpose
 ## Problems
