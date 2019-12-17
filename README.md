@@ -1,10 +1,12 @@
 # Itslearning-anti-surveillance
-### A tool to single handedly render the teachers' spying features useless.
+### A tool to render teachers' spying features useless
 ## Inner workings
 ```
  Scan for availible subjects/courses
  Create a map of every availible resource the student has access to
  Induvidually visit every element (GET)
+ 
+ Elements include tasks, links, documents, PDFs, etc
 ```
 
 # Purpose
@@ -21,7 +23,7 @@ python itslearning.py <ASP.NET_SessionId>
  The argument seen above is the session cookie that ties this session instance to your account.
  You can aquire the cookie by logging into it's learning and opening the "Storage" section of the F12 menu.
 
-## Requirements
+## Requirements (PIP available)
 ```
 faker
 bs4
