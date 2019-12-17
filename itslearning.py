@@ -1,6 +1,6 @@
 from faker import Faker
 from bs4 import BeautifulSoup
-import requests, progressbar, json, argparse
+import requests, progressbar, json, argparse, datetime
 
 url = "https://afk.itslearning.com"
 
@@ -101,19 +101,36 @@ def getSoup(s, item, session):
 	return BeautifulSoup(r.text, "html.parser")
 
 
-def main(session=None):
+def main(session, starred, minDelay):
 	s = requests.Session()
-	assert len(session) < 16, "Provide session cookie (ASP.NET_SessionId)"
+	assert len(session) >= 16, "Provide session cookie (ASP.NET_SessionId)"
 
-	print("Gathering IDs")
-	stuff = getEverything(s, session, onlyStarred=False)
+	while True:
+		if not "old" in locals():
+			old = datetime.datetime.now()
+		else:
+			c = datetime.datetime.now()
+			while (c - old).total_seconds() < 60*minDelay: # 15 minutes
+				c = datetime.datetime.now()
+			old = c
 
-	print("\nRetrieving HTML from every item available")
-	for item in progressbar.progressbar(stuff, redirect_stdout=True):
-		#print(item["teacher"]+": "+item["type"]+": "+getSoup(s, item, session).find("title").getText())
-		getSoup(s, item, session)
+		# timing is synced
+
+		print("Gathering IDs")
+		stuff = getEverything(s, session, onlyStarred=starred)
+
+		print("\nRetrieving HTML from every item available")
+		for item in progressbar.progressbar(stuff, redirect_stdout=True):
+			#print(item["teacher"]+": "+item["type"]+": "+getSoup(s, item, session).find("title").getText())
+			getSoup(s, item, session)
+		print(f"Done ({str(old)}) in {round((datetime.datetime.now()-old).total_seconds(), 2)} seconds!\n")
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("session", help="ASP.NET_SessionId")
-	main(parser.parse_args().session)
+	parser.add_argument("-s", "--starredOnly", help="Wether to only scan the subjects marked as * in it's learning", type=lambda i: not i.lower() in ["false", "0"], default=True)
+	parser.add_argument("-d", "--delay", help="Delay in minutes", default=15, type=int)
+
+	args = parser.parse_args()
+	args.starredOnly = True if args.starredOnly is None else args.starredOnly
+	main(args.session, args.starredOnly, args.delay)
