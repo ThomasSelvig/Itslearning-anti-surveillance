@@ -5,11 +5,11 @@
  Create a map of every availible resource the student has access to
  Induvidually visit every element (GET)
 
-## Purpose
-# Problems
+# Purpose
+## Problems
  An it's learning teacher can see when their students last saw their uploaded "resource"
  Teachers are able to see exactly what items a certain student access at any moment
-# Solution
+## Solution
  Visit every resource at once (using this tool) to render the "last seen" data for teachers useless
 
 ## Usage
