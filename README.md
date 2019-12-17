@@ -18,7 +18,18 @@
 
 ## Usage
 ```
-python itslearning.py <ASP.NET_SessionId>
+usage: itslearning.py [-h] [-s STARREDONLY] [-d DELAY] session
+
+positional arguments:
+  session               ASP.NET_SessionId
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s STARREDONLY, --starredOnly STARREDONLY
+                        Wether to only scan the subjects marked as * in it's learning
+  -d DELAY, --delay DELAY
+                        Delay in minutes
+
 ```
  The argument seen above is the session cookie that ties this session instance to your account.
  You can aquire the cookie by logging into it's learning and opening the "Storage" section of the F12 menu.
