@@ -1,3 +1,7 @@
+# DEPRECATION WARNING
+### It's learning recently updated their layout so this "scraper" is currently broken.
+### I'm not planning on doing anything about it but try to convince me if you think I should.
+
 # Itslearning-anti-surveillance
 ### A tool to render teachers' spying features useless
 ## Inner workings
